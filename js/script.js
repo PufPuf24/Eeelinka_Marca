@@ -8,6 +8,107 @@ const PUFFIK_REPLIES = ['Meow', 'Meow, Meow', 'Purr'];
 // formulář místo toho otevře předvyplněný e-mail.
 const GOOGLE_SHEETS_ENDPOINT = '';
 
+// Fotky v hero sekci: pojmenuj je images/couple-1.jpg, images/couple-2.jpg, ...
+// (postupně bez mezer v číslování). Web sám zjistí, kolik jich je a bude
+// mezi nimi po HERO_PHOTO_INTERVAL_MS otáčet jako kolotoč zprava doleva -
+// jedna fotka vždy vpředu uprostřed, dvě další zmenšené po stranách.
+const HERO_PHOTO_MAX_CHECK = 12;
+const HERO_PHOTO_INTERVAL_MS = 8000;
+
+// --- Fotky novomanželů: automatické načtení a kolotoč ---
+function initHeroPhotos() {
+  const stage = document.getElementById('hero-photo');
+  if (!stage) return;
+  const placeholder = stage.querySelector('.hero-photo-placeholder');
+
+  const probes = [];
+  for (let i = 1; i <= HERO_PHOTO_MAX_CHECK; i++) {
+    const src = `images/couple-${i}.jpg`;
+    probes.push(new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(src);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    }));
+  }
+
+  Promise.all(probes).then((results) => {
+    const urls = results.filter(Boolean);
+    const n = urls.length;
+    if (n === 0) return;
+    if (placeholder) placeholder.remove();
+
+    function makeCard(src, role) {
+      const card = document.createElement('div');
+      card.className = 'hero-photo-card role-' + role;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      card.appendChild(img);
+      stage.appendChild(card);
+      return { el: card, img };
+    }
+
+    // 1 fotka: jen statická, žádné otáčení.
+    if (n === 1) {
+      makeCard(urls[0], 'center');
+      return;
+    }
+
+    // 2 fotky: jednoduché prolínání na stejném místě uprostřed.
+    if (n === 2) {
+      const a = makeCard(urls[0], 'center');
+      const b = makeCard(urls[1], 'center');
+      b.el.style.transition = 'opacity 1.4s ease';
+      b.el.style.opacity = '0';
+      let showingA = true;
+      setInterval(() => {
+        showingA = !showingA;
+        b.el.style.opacity = showingA ? '0' : '1';
+      }, HERO_PHOTO_INTERVAL_MS);
+      return;
+    }
+
+    // 3+ fotky: skutečný kolotoč. Karta, co odchází vlevo, se neviditelně
+    // "ponoří" (uprostřed animace se jí tiše vymění fotka za další v pořadí)
+    // a znovu se "vynoří" napravo - nikdy neprojíždí viditelně přes střed.
+    let elLeft = makeCard(urls[n - 1], 'left');
+    let elCenter = makeCard(urls[0], 'center');
+    let elRight = makeCard(urls[1], 'right');
+    let nextIndex = 2 % n;
+
+    setInterval(() => {
+      const recycling = elLeft;
+      const newLeft = elCenter;
+      const newCenter = elRight;
+
+      newLeft.el.className = 'hero-photo-card role-left';
+      newCenter.el.className = 'hero-photo-card role-center';
+
+      recycling.el.className = 'hero-photo-card recycling';
+      recycling.el.addEventListener('animationend', function onDone() {
+        recycling.el.removeEventListener('animationend', onDone);
+        recycling.el.classList.remove('recycling');
+        recycling.el.style.transition = 'none';
+        recycling.el.className = 'hero-photo-card role-right';
+        void recycling.el.offsetWidth;
+        recycling.el.style.transition = '';
+      }, { once: true });
+
+      // fotku vyměníme přesně ve chvíli, kdy je karta v animaci neviditelná
+      setTimeout(() => {
+        recycling.img.src = urls[nextIndex];
+        nextIndex = (nextIndex + 1) % n;
+      }, 650);
+
+      elLeft = newLeft;
+      elCenter = newCenter;
+      elRight = recycling;
+    }, HERO_PHOTO_INTERVAL_MS);
+  });
+}
+initHeroPhotos();
+
 // --- Odpočet do svatby ---
 function updateCountdown() {
   const now = new Date();
