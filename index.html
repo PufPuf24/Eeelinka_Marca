@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eliška & Marek | Naše svatba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Sdílená SVG šablona kocoura Puffíka (dekorativní, používaná přes <use>) -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="puffik-icon" viewBox="0 0 220 220">
+    <path class="p-tail" d="M180 165 C 205 150, 210 120, 195 100" fill="none" stroke="#5C5D61" stroke-width="14" stroke-linecap="round"/>
+    <ellipse class="p-paw" cx="78" cy="198" rx="17" ry="11" fill="#9A9B9F"/>
+    <ellipse class="p-paw" cx="140" cy="198" rx="17" ry="11" fill="#9A9B9F"/>
+    <ellipse cx="110" cy="112" rx="72" ry="62" fill="#75767A"/>
+    <path d="M75 58 Q92 76 84 94" stroke="#2E2E31" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M97 50 Q100 62 98 72" stroke="#2E2E31" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M123 50 Q120 62 122 72" stroke="#2E2E31" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M145 58 Q128 76 136 94" stroke="#2E2E31" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <g class="p-ear-left">
+      <path d="M55 65 L40 20 L85 52 Z" fill="#75767A"/>
+      <path d="M58 58 L49 32 L75 50 Z" fill="#F3C9A0"/>
+    </g>
+    <g class="p-ear-right">
+      <path d="M165 65 L180 20 L135 52 Z" fill="#75767A"/>
+      <path d="M162 58 L171 32 L145 50 Z" fill="#F3C9A0"/>
+    </g>
+    <path d="M80 164 L80 180 L108 172 Z" fill="#C23B3B"/>
+    <path d="M140 164 L140 180 L112 172 Z" fill="#C23B3B"/>
+    <rect x="105" y="166" width="10" height="12" rx="2" fill="#C23B3B" stroke="#8E2323" stroke-width="1.5"/>
+    <g class="p-eye-good">
+      <ellipse cx="82" cy="108" rx="12" ry="13" fill="#fff"/>
+      <circle cx="82" cy="109" r="7" fill="#7CA65A"/>
+      <circle cx="82" cy="109" r="3.2" fill="#213617"/>
+      <rect class="p-eyelid" x="68" y="94" width="28" height="14" fill="#75767A"/>
+    </g>
+    <g class="p-patch">
+      <path d="M40 100 L182 78" stroke="#2A2A2E" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="140" cy="106" rx="19" ry="17" fill="#2A2A2E" transform="rotate(-8 140 106)"/>
+    </g>
+    <path d="M104 128 L116 128 L110 136 Z" fill="#D97B7B"/>
+    <path d="M100 138 Q105 143 110 138 Q115 143 120 138" stroke="#2E2E31" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">
+  <span data-lang-label>EN</span>
+</button>
+
+<!-- Zamykací obrazovka - strážce Puffík -->
+<div class="lock-overlay" id="lock-overlay">
+  <div class="lock-card">
+    <svg id="guard-cat" class="guard is-watching" viewBox="0 0 240 220" aria-hidden="true">
+      <path d="M200 168 C 222 155, 226 128, 212 110" fill="none" stroke="#5C5D61" stroke-width="13" stroke-linecap="round"/>
+      <ellipse cx="100" cy="205" rx="16" ry="10" fill="#9A9B9F"/>
+      <ellipse cx="150" cy="205" rx="16" ry="10" fill="#9A9B9F"/>
+      <ellipse cx="125" cy="115" rx="74" ry="63" fill="#75767A"/>
+      <path d="M95 62 Q112 80 104 98" stroke="#2E2E31" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M140 60 Q124 78 132 96" stroke="#2E2E31" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <g class="guard-ear-l">
+        <path d="M70 68 L55 22 L100 55 Z" fill="#75767A"/>
+        <path d="M73 60 L64 34 L90 53 Z" fill="#F3C9A0"/>
+      </g>
+      <g class="guard-ear-r">
+        <path d="M180 68 L195 22 L150 55 Z" fill="#75767A"/>
+        <path d="M177 60 L186 34 L160 53 Z" fill="#F3C9A0"/>
+      </g>
+      <path class="guard-spike" d="M55 90 L30 82 L52 100 Z" fill="#75767A" />
+      <path class="guard-spike" d="M195 90 L220 82 L198 100 Z" fill="#75767A" />
+      <path class="guard-spike" d="M70 145 L48 155 L72 158 Z" fill="#75767A" />
+      <path class="guard-spike" d="M180 145 L202 155 L178 158 Z" fill="#75767A" />
+      <path d="M95 179 L95 195 L123 187 Z" fill="#C23B3B"/>
+      <path d="M155 179 L155 195 L127 187 Z" fill="#C23B3B"/>
+      <rect x="120" y="181" width="10" height="12" rx="2" fill="#C23B3B" stroke="#8E2323" stroke-width="1.5"/>
+      <g class="guard-patch">
+        <path d="M55 105 L197 83" stroke="#2A2A2E" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="155" cy="111" rx="19" ry="17" fill="#2A2A2E" transform="rotate(-8 155 111)"/>
+      </g>
+      <g class="guard-eye-good">
+        <ellipse cx="97" cy="113" rx="13" ry="14" fill="#fff"/>
+        <circle class="guard-pupil" cx="97" cy="114" r="7.5" fill="#7CA65A"/>
+        <circle class="guard-pupil-slit" cx="97" cy="114" r="7.5" fill="#7CA65A"/>
+        <circle class="guard-pupil-dot" cx="97" cy="114" r="3.4" fill="#213617"/>
+      </g>
+      <path class="guard-eye-happy" d="M85 114 Q97 102 109 114" stroke="#2E2E31" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path class="guard-mouth-normal" d="M115 153 Q120 158 125 153 Q130 158 135 153" stroke="#2E2E31" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="guard-mouth-hiss" d="M108 140 Q125 162 142 140 Q125 150 108 140 Z" fill="#7A3B3B"/>
+      <path class="guard-mouth-hiss" d="M112 141 L116 148 M120 143 L123 150 M130 143 L127 150 M138 141 L134 148" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      <path d="M119 143 L131 143 L125 151 Z" fill="#D97B7B"/>
+      <g class="guard-paw">
+        <path d="M78 100 Q97 78 118 100 Q118 130 97 132 Q78 130 78 100 Z" fill="#B7B8BC" stroke="#5C5D61" stroke-width="2"/>
+        <path d="M84 103 Q90 96 96 103" stroke="#5C5D61" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M98 102 Q104 95 110 102" stroke="#5C5D61" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M88 122 Q97 128 106 122" stroke="#5C5D61" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <div class="lock-bubble" id="lock-bubble"></div>
+    <h2 data-i18n="lock.title">Tento web je zamčený</h2>
+    <p data-i18n="lock.hint">Puffík hlídá vstup. Heslo najdete na naší svatební pozvánce.</p>
+    <form class="lock-form" id="lock-form">
+      <input type="password" id="lock-input" data-i18n-placeholder="lock.placeholder" placeholder="Heslo" autocomplete="off" required>
+      <button type="submit" data-i18n="lock.button">Odemknout</button>
+    </form>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#top">E <span>&amp;</span> M</a>
+    <nav class="main-nav">
+      <a href="#harmonogram" data-i18n="nav.schedule">Harmonogram</a>
+      <a href="#misto" data-i18n="nav.venue">Místo</a>
+      <a href="#dress-code" data-i18n="nav.guestinfo">Info pro hosty</a>
+      <a href="#rsvp" data-i18n="nav.rsvp">RSVP</a>
+      <a href="#puffik" class="nav-puffik">
+        <svg class="icon-sm" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+        <span data-i18n="nav.puffik">Zeptej se Puffíka</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-deco" aria-hidden="true">✦</div>
+    <p class="eyebrow" data-i18n="hero.eyebrow">Bereme se</p>
+    <h1>Eliška <span class="amp">&amp;</span> Marek</h1>
+    <p class="hero-date" data-i18n="hero.date">3. června 2027 &middot; Dohnalův mlýn</p>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="countdown-item"><span id="cd-days">–</span><small data-i18n="countdown.days">dní</small></div>
+      <div class="countdown-item"><span id="cd-hours">–</span><small data-i18n="countdown.hours">hodin</small></div>
+      <div class="countdown-item"><span id="cd-mins">–</span><small data-i18n="countdown.mins">minut</small></div>
+      <div class="countdown-item"><span id="cd-secs">–</span><small data-i18n="countdown.secs">sekund</small></div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="images/couple-photo.jpg" alt="Eliška a Marek" data-i18n-alt="hero.photoAlt"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hero-photo-placeholder">
+        <span data-i18n="hero.photoPlaceholder">Sem přijde naše fotka<br>(images/couple-photo.jpg)</span>
+      </div>
+    </div>
+
+    <p class="hero-lead" data-i18n="hero.lead">
+      Moc se na vás těšíme a budeme rádi, když náš velký den oslavíte společně s námi.
+      Všechny důležité informace najdete níže — a pokud vám něco nebude jasné,
+      zeptejte se našeho osobního správce webu, kocoura Puffíka. 🐾
+    </p>
+    <a class="btn btn-primary" href="#rsvp" data-i18n="hero.cta">Potvrdit účast</a>
+  </section>
+
+  <section class="section" id="harmonogram">
+    <h2 data-i18n="schedule.title">Harmonogram dne</h2>
+    <p class="section-lead" data-i18n="schedule.lead">Orientační časy — přesný program vám ještě upřesníme, ale takhle nějak to bude vypadat.</p>
+    <ol class="timeline">
+      <li><span class="time">11:00</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item1.title">Svatební obřad</strong><p data-i18n="schedule.item1.desc">Kostel sv. Petra a Pavla, Rataje u Kroměříže</p></div></li>
+      <li><span class="time">11:45</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item2.title">Gratulace a přípitek</strong><p data-i18n="schedule.item2.desc">Před kostelem</p></div></li>
+      <li><span class="time">13:00</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item3.title">Slavnostní oběd</strong><p data-i18n="schedule.item3.desc">Dohnalův mlýn</p></div></li>
+      <li><span class="time">15:00</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item4.title">Společné focení</strong><p data-i18n="schedule.item4.desc">Novomanželé, rodina, přátelé</p></div></li>
+      <li><span class="time">18:00</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item5.title">Krájení dortu</strong><p data-i18n="schedule.item5.desc">Sladká tečka na závěr</p></div></li>
+      <li><span class="time">19:00</span><span class="dot" aria-hidden="true"></span><div class="timeline-content"><strong data-i18n="schedule.item6.title">První tanec</strong><p data-i18n="schedule.item6.desc">A pak už volná zábava a tanec do noci</p></div></li>
+    </ol>
+  </section>
+
+  <section class="section alt" id="misto">
+    <h2 data-i18n="venue.title">Místo konání</h2>
+    <p class="section-lead" data-i18n="venue.lead">Obřad a oběd s hostinou se konají na dvou různých místech — počítejte prosím s přesunem autem mezi kostelem a mlýnem.</p>
+    <div class="venues">
+      <div class="venue-card">
+        <h3 data-i18n="venue.church.title">Obřad — kostel sv. Petra a Pavla</h3>
+        <p data-i18n="venue.church.text">Rataje u Kroměříže. Obřad začíná v 11:00, doporučujeme přijet s předstihem.</p>
+        <a class="btn btn-outline" href="https://www.google.com/maps?q=Kostel+svat%C3%A9ho+Petra+a+Pavla%2C+Rataje+u+Krom%C4%9B%C5%99%C3%AD%C5%BEe" target="_blank" rel="noopener" data-i18n="venue.maplink">Otevřít v Google Maps</a>
+        <iframe
+          title="Mapa - Kostel sv. Petra a Pavla, Rataje u Kroměříže"
+          src="https://www.google.com/maps?q=Kostel+svat%C3%A9ho+Petra+a+Pavla%2C+Rataje+u+Krom%C4%9B%C5%99%C3%AD%C5%BEe&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="venue-card">
+        <h3 data-i18n="venue.mill.title">Oběd a hostina — Dohnalův mlýn</h3>
+        <p data-i18n="venue.mill.text">Slavnostní oběd začíná ve 13:00. Parkování bude možné přímo v areálu mlýna.</p>
+        <a class="btn btn-outline" href="https://www.google.com/maps?q=Dohnal%C5%AFv+ml%C3%BDn" target="_blank" rel="noopener" data-i18n="venue.maplink">Otevřít v Google Maps</a>
+        <iframe
+          title="Mapa - Dohnalův mlýn"
+          src="https://www.google.com/maps?q=Dohnal%C5%AFv+ml%C3%BDn&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="dress-code">
+    <h2 data-i18n="guestinfo.title">Info pro hosty</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3 data-i18n="guestinfo.card1.title">Dress code</h3>
+        <p data-i18n="guestinfo.card1.text">Společenské oblečení / garden party styl. Prosíme jen o vyhnutí se bílé barvě, ta je tentokrát rezervovaná pro nevěstu.</p>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="guestinfo.card2.title">Ubytování</h3>
+        <p data-i18n="guestinfo.card2.text">Pokud budete potřebovat přespat v okolí, dejte nám vědět přes RSVP formulář — rádi pomůžeme s doporučením.</p>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="guestinfo.card3.title">Doprava a parkování</h3>
+        <p data-i18n="guestinfo.card3.text">Parkování je možné přímo v areálu mlýna. Kapacita je omezená, doporučujeme raději spolujízdu.</p>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="guestinfo.card4.title">Dárky</h3>
+        <p data-i18n="guestinfo.card4.text">Vaší přítomnosti si vážíme nejvíc. Pokud byste nám přesto chtěli něco přinést, budeme rádi za příspěvek do naší společné pokladničky.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="rsvp">
+    <h2 data-i18n="rsvp.title">Potvrzení účasti</h2>
+    <p class="section-lead" data-i18n="rsvp.lead">Prosíme o vyplnění do 1. dubna 2027, ať víme, na kolik hostů se máme připravit.</p>
+    <form class="rsvp-form" id="rsvp-form">
+      <div class="form-row">
+        <label for="rsvp-name" data-i18n="rsvp.name">Jméno a příjmení</label>
+        <input type="text" id="rsvp-name" name="name" required data-i18n-placeholder="rsvp.namePh" placeholder="Např. Jana Nováková">
+      </div>
+      <div class="form-row">
+        <label for="rsvp-count" data-i18n="rsvp.count">Počet osob</label>
+        <input type="number" id="rsvp-count" name="count" min="1" max="10" value="1" required>
+      </div>
+      <div class="form-row">
+        <span class="form-label" data-i18n="rsvp.attending">Zúčastníte se?</span>
+        <div class="radio-group">
+          <label><input type="radio" name="attending" value="Ano" checked> <span data-i18n="rsvp.yes">Ano, budeme tam</span></label>
+          <label><input type="radio" name="attending" value="Ne"> <span data-i18n="rsvp.no">Bohužel nemůžeme</span></label>
+          <label><input type="radio" name="attending" value="Nevím"> <span data-i18n="rsvp.unsure">Ještě nevím</span></label>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-label" data-i18n="rsvp.sleep">Zůstanete přes noc?</span>
+        <div class="radio-group">
+          <label><input type="radio" name="sleep" value="Ano"> <span data-i18n="rsvp.sleepYes">Ano, budeme potřebovat nocleh</span></label>
+          <label><input type="radio" name="sleep" value="Ne" checked> <span data-i18n="rsvp.sleepNo">Ne, spíme jinde</span></label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="rsvp-note" data-i18n="rsvp.note">Dietní omezení / vzkaz pro nás</label>
+        <textarea id="rsvp-note" name="note" rows="3" data-i18n-placeholder="rsvp.notePh" placeholder="Např. bezlepková dieta, potřebujeme ubytování..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" data-i18n="rsvp.submit">Odeslat potvrzení</button>
+      <p class="form-hint" data-i18n="rsvp.hint">Odesláním se otevře e-mailová zpráva pro nás už předvyplněná — stačí ji jen poslat.</p>
+    </form>
+    <div class="rsvp-success" id="rsvp-success" hidden>
+      <svg class="icon-lg" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+      <h3 data-i18n="rsvp.successTitle">Díky!</h3>
+      <p data-i18n="rsvp.successText">Vaše odpověď je zapsaná. Puffík na ni bude hrdě dohlížet. 🐾</p>
+    </div>
+  </section>
+
+  <section class="section puffik-section" id="puffik">
+    <div class="puffik-intro">
+      <svg class="icon-lg" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+      <div>
+        <h2 data-i18n="puffik.title">Máte dotaz? Zeptejte se Puffíka!</h2>
+        <p data-i18n="puffik.text">Puffík je náš kocour a zároveň hrdý správce tohoto webu. Přišel o oko v boji s vysavačem,
+          ale rozhodně mu to nebere sebevědomí. Zeptejte se ho na cokoliv — odpověď dostanete vždy
+          moudrou, stručnou a naprosto kočičí.</p>
+      </div>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+      <div class="chat-header">
+        <svg class="icon-xs" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+        <div>
+          <strong>Puffík</strong>
+          <span class="status" data-i18n="chat.status">● Online, právě spí na klávesnici</span>
+        </div>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg msg-bot" data-i18n="chat.greeting">Ahoj! Jsem Puffík, správce webu. Zeptej se mě na cokoliv ohledně svatby. 🐾</div>
+      </div>
+      <form class="chat-input-row" id="chat-form">
+        <input type="text" id="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Zeptej se Puffíka na cokoliv…" autocomplete="off" required>
+        <button type="submit" aria-label="Odeslat dotaz" data-i18n="chat.send">Odeslat</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-admin">
+      <svg class="icon-md puffik-float" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+      <div>
+        <strong>Puffík</strong>
+        <span data-i18n="footer.role">Správce webu</span>
+      </div>
+    </div>
+    <p data-i18n="footer.credit">S láskou připravili Eliška &amp; Marek · 2026</p>
+  </div>
+</footer>
+
+<button class="chat-fab" id="chat-fab" aria-label="Otevřít chat s Puffíkem">
+  <svg class="icon-md" viewBox="0 0 220 220"><use href="#puffik-icon"></use></svg>
+</button>
+
+<script src="js/i18n.js"></script>
+<script src="js/lock.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
