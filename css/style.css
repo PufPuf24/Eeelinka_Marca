@@ -16,14 +16,21 @@
 
 html { scroll-behavior: smooth; }
 
-html, body { overflow-x: hidden; max-width: 100%; }
+html, body {
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  width: 100%;
+  max-width: 100vw;
+}
 
 body {
+  position: relative;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   color: var(--ink);
   background: var(--cream);
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
 }
 
 h1, h2, h3 {
@@ -48,6 +55,7 @@ img, svg { max-width: 100%; }
   top: 0;
   z-index: 50;
   background: rgba(251, 245, 236, 0.9);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(74, 55, 40, 0.08);
 }
@@ -350,7 +358,7 @@ img, svg { max-width: 100%; }
   border: 1px solid #e2d5c4;
   border-radius: 10px;
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 16px; /* min. 16px, jinak iOS Safari při focusu pole automaticky přiblíží stránku */
   background: var(--cream);
 }
 .rsvp-form input:focus, .rsvp-form textarea:focus {
@@ -473,7 +481,7 @@ img, svg { max-width: 100%; }
   border-radius: 999px;
   border: 1px solid #e2d5c4;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 16px;
   background: var(--cream);
 }
 .chat-input-row input:focus { outline: 2px solid var(--rose); }
@@ -514,8 +522,8 @@ img, svg { max-width: 100%; }
 /* ---------- Floating chat button ---------- */
 .chat-fab {
   position: fixed;
-  bottom: 22px;
-  right: 22px;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  right: calc(22px + env(safe-area-inset-right, 0px));
   width: 68px;
   height: 68px;
   border-radius: 50%;
@@ -528,6 +536,10 @@ img, svg { max-width: 100%; }
   cursor: pointer;
   z-index: 60;
   padding: 0;
+  /* drží fixní pozici spolehlivě i na iOS Safari (jinak umí za scrollu "ujíždět") */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
 }
 .chat-fab:hover { transform: scale(1.06); }
 
@@ -576,8 +588,8 @@ img, svg { max-width: 100%; }
 /* ---------- Language toggle ---------- */
 .lang-toggle {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
   z-index: 200;
   background: var(--white);
   border: 2px solid var(--rose);
@@ -589,6 +601,9 @@ img, svg { max-width: 100%; }
   border-radius: 999px;
   cursor: pointer;
   box-shadow: var(--shadow);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
 }
 .lang-toggle:hover { background: var(--rose); color: var(--white); }
 
@@ -659,7 +674,7 @@ body.is-locked { overflow: hidden; }
   border: 1px solid #e2d5c4;
   background: var(--cream);
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 16px;
 }
 .lock-form input:focus { outline: 2px solid var(--rose); }
 .lock-form button {
@@ -752,7 +767,18 @@ body.is-locked { overflow: hidden; }
   .section.alt { margin: 0 12px; border-radius: 26px; }
   .lock-card { padding: 28px 20px 24px; }
   #guard-cat { width: 130px; }
-  .lang-toggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 0.75rem; }
+  .lang-toggle {
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    right: calc(10px + env(safe-area-inset-right, 0px));
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+  .chat-fab {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    right: calc(14px + env(safe-area-inset-right, 0px));
+    width: 58px;
+    height: 58px;
+  }
   .venues { grid-template-columns: 1fr; }
   .hero-photo { --side-x: 95px; height: 230px; }
   .hero-photo-card, .hero-photo-placeholder { width: 160px; height: 205px; }
